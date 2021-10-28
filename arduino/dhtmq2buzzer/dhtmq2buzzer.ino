@@ -3,12 +3,11 @@
 #include <InfluxDbClient.h>
 #include <InfluxDbCloud.h>
 
-// InfluxDB v2 server url, e.g. https://eu-central-1-1.aws.cloud2.influxdata.com (Use: InfluxDB UI -> Load Data -> Client Libraries)
 #define INFLUXDB_URL "https://eu-central-1-1.aws.cloud2.influxdata.com"
 // InfluxDB v2 server or cloud API token (Use: InfluxDB UI -> Data -> API Tokens -> <select token>)
-#define INFLUXDB_TOKEN "UU4VxJbOWPIorM1mxJik4ghXYavCDuN_cafTO30jHrq-y3WNl9M5aHGFkffKyuPVgyqbhyDfw-CKaBLbm8RT7w=="
+#define INFLUXDB_TOKEN "55trP1i-mBCyoUNGlbLwiRuz-dZ4HTB368xsU_j-JoxKEbxSTxhUhcATze2TResaeP1dCiSegd3yH1QgVgdYCw=="
 // InfluxDB v2 organization id (Use: InfluxDB UI -> User -> About -> Common Ids )
-#define INFLUXDB_ORG "dinuionutvladut99@gmail.com"
+#define INFLUXDB_ORG "arduinosio2021@gmail.com"
 // InfluxDB v2 bucket name (Use: InfluxDB UI ->  Data -> Buckets)
 #define INFLUXDB_BUCKET "ArduinoESP"
 
@@ -98,7 +97,7 @@ void loop() {
   Serial.print(mq2_read);
    Serial.print(" ppm");
    Serial.print("\n");
-   if(mq2_read > float(800) || t > float(45)){
+   if(mq2_read > float(800) || t > float(50)){
      tone(buzzer, 1000); // Send 1KHz sound signal...
      
      delay(500);        // ...for 1 sec
