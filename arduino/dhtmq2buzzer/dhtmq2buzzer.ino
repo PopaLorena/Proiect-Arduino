@@ -1,4 +1,25 @@
 #include "DHT.h"
+
+#include <InfluxDbClient.h>
+#include <InfluxDbCloud.h>
+
+// InfluxDB v2 server url, e.g. https://eu-central-1-1.aws.cloud2.influxdata.com (Use: InfluxDB UI -> Load Data -> Client Libraries)
+#define INFLUXDB_URL "https://eu-central-1-1.aws.cloud2.influxdata.com"
+// InfluxDB v2 server or cloud API token (Use: InfluxDB UI -> Data -> API Tokens -> <select token>)
+#define INFLUXDB_TOKEN "UU4VxJbOWPIorM1mxJik4ghXYavCDuN_cafTO30jHrq-y3WNl9M5aHGFkffKyuPVgyqbhyDfw-CKaBLbm8RT7w=="
+// InfluxDB v2 organization id (Use: InfluxDB UI -> User -> About -> Common Ids )
+#define INFLUXDB_ORG "dinuionutvladut99@gmail.com"
+// InfluxDB v2 bucket name (Use: InfluxDB UI ->  Data -> Buckets)
+#define INFLUXDB_BUCKET "ArduinoESP"
+
+#define TZ_INFO "CET-1CEST,M3.5.0,M10.5.0/3"
+#define DEVICE "ESP8266"
+// InfluxDB client instance with preconfigured InfluxCloud certificate
+InfluxDBClient client(INFLUXDB_URL, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_TOKEN, InfluxDbCloud2CACert);
+
+// Data point
+Point sensor("esp8266s");
+
 #define         MQ_PIN                       (A0)     
 #define         RL_VALUE                     (5)     
 #define         RO_CLEAN_AIR_FACTOR          (9.83)  
@@ -11,15 +32,15 @@
 #define         READ_SAMPLE_INTERVAL         (50)   
 #define         READ_SAMPLE_TIMES            (5)     
 
-
 #define DHTPIN D2     // what pin we're connected to
 #define MQ2 A0     // what pin we're connected to
 // Uncomment whatever type you're using!
 #define DHTTYPE DHT12   // DHT 11
 //#define DHTTYPE DHT22   // DHT 22  (AM2302)
 //#define DHTTYPE DHT21   // DHT 21 (AM2301)
-const int buzzer = 13;
 
+const int buzzer = 13;
+int Ro = 10;
 DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
@@ -27,7 +48,7 @@ void setup() {
   Serial.println("DHTxx test!");
     pinMode(MQ2, INPUT);
     Serial.print("Calibrating...\n");                
-  Ro = MQCalibration(MQ_PIN);                       //Calibrating the sensor. Please make sure the sensor is in clean air 
+                     //Calibrating the sensor. Please make sure the sensor is in clean air 
                                                     //when you perform the calibration                    
   Serial.print("Calibration is done...\n"); 
   Serial.print("Ro=");
@@ -35,90 +56,71 @@ void setup() {
   Serial.print("kohm");
   Serial.print("\n");
   Serial.print("\n");
-
   dht.begin();
-}
-float MQResistanceCalculation(int raw_adc)
-{
-  return ( ((float)RL_VALUE*(1023-raw_adc)/raw_adc));
-}
-float MQCalibration(int mq_pin)
-{
-  int i;
-  float val=0;
-
-  for (i=0;i<CALIBARAION_SAMPLE_TIMES;i++) {            //take multiple samples
-    val += MQResistanceCalculation(analogRead(mq_pin));
-    delay(CALIBRATION_SAMPLE_INTERVAL);
+    if (client.validateConnection()) {
+    Serial.print("Connected to InfluxDB: ");
+    Serial.println(client.getServerUrl());
+  } else {
+    Serial.print("InfluxDB connection failed: ");
+    Serial.println(client.getLastErrorMessage());
   }
-  val = val/CALIBARAION_SAMPLE_TIMES;                   //calculate the average value
-
-  val = val/RO_CLEAN_AIR_FACTOR;                        //divided by RO_CLEAN_AIR_FACTOR yields the Ro 
-                                                        //according to the chart in the datasheet 
-
-  return val; 
+     sensor.addTag("device", DEVICE);
 }
-
-int MQGetGasPercentage(float rs_ro_ratio, int gas_id)
-{
-  if ( gas_id == 0 ) {
-     return pow(10, ((log(rs_ro_ratio)-LPGCurve[1])/ LPGCurve[2]) + LPGCurve[0]);
-
-  } else if ( gas_id == 1 ) {
-     return rs_ro_ratio;
-  } else if ( gas_id == 2 ) {
-     return rs_ro_ratio;
-  }    
-
-  return 0;
-}
-
-
 void loop() {
-  // Wait a few seconds between measurements.
+// Wait a few secondsbetween measurements.
   delay(2000);
 
+  sensor.clearFields();
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
   float h = dht.readHumidity();
   // Read temperature as Celsius (the default)
   float t = dht.readTemperature();
-  // Read temperature as Fahrenheit (isFahrenheit = true)
-  float f = dht.readTemperature(true);
 
   // Check if any reads failed and exit early (to try again).
-  if (isnan(h) || isnan(t) || isnan(f)) {
-    Serial.println("Impossible de lire la sonde DHT!");
+  if (isnan(h) || isnan(t)) {
+    Serial.println("Nu se poate citi de la DHT!");
     return;
   }
 
   // Compute heat index in Fahrenheit (the default)
-  float hif = dht.computeHeatIndex(f, h);
+  //float hif = dht.computeHeatIndex(f, h);
   // Compute heat index in Celsius (isFahreheit = false)
-  float hic = dht.computeHeatIndex(t, h, false);
-  float mq2_read = analogRead(A0)/Ro;
+  //float hic = dht.computeHeatIndex(t, h, false);
+  float mq2_read = analogRead(MQ2);
   Serial.print("Humidity: ");
   Serial.print(h);
   Serial.print(" %\t");
   Serial.print("Temperature: ");
   Serial.print(t);
-  Serial.print(" *C ");
-  Serial.print(f);
-  Serial.print(" *F\t");
-  Serial.print("Heat index: ");
-  Serial.print(hic);
-  Serial.print(" *C ");
-  Serial.print(hif);
-  Serial.println(" *F");
+  Serial.println(" *C ");
   Serial.print("Gas: "); 
   Serial.print(mq2_read);
    Serial.print(" ppm");
    Serial.print("\n");
-   if(mq2_read > float(320) && t > float(32)){
+   if(mq2_read > float(800) || t > float(45)){
      tone(buzzer, 1000); // Send 1KHz sound signal...
      
      delay(500);        // ...for 1 sec
      noTone(buzzer);     // Stop sound...
    }
 
+  sensor.addField("Temp", t);
+  sensor.addField("Humidity", h);
+  sensor.addField("GAZ", mq2_read);
+  // Accurate time is necessary for certificate validation and writing in batches
+  // For the fastest time sync find NTP servers in your area: https://www.pool.ntp.org/zone/
+  // Syncing progress and the time will be printed to Serial.
+  timeSync(TZ_INFO, "pool.ntp.org", "time.nis.gov");
+ 
+  // Print what are we exactly writing
+  Serial.print("Writing: ");
+  Serial.println(sensor.toLineProtocol());
+
+  // Check server connection
+
+    if (!client.writePoint(sensor)) {
+    Serial.print("InfluxDB write failed: ");
+    Serial.println(client.getLastErrorMessage());
+  }
 }
