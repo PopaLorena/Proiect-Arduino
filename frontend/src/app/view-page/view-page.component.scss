@@ -1,0 +1,47 @@
+.page {
+    background-color: black;
+    min-height: 90vh;
+    display: grid;
+    //  justify-items: center;
+    grid-template-rows: 250px auto;
+}
+
+.charts {
+    display: flex;
+    flex-direction: row;
+    margin-top: 60px;
+}
+
+p {
+    text-align-last: center;
+    font-size: 30px;
+    color: aliceblue;
+}
+
+.digits {
+    color: aliceblue;
+    font-size: 100px;
+    //margin-top: 15px;
+    height: 120px;
+    padding-top: 60px;
+}
+
+.gaz {
+    width: 50%;
+    text-align: center;
+    display: grid;
+}
+
+.apa {
+    color: aliceblue;
+    width: 50%;
+    text-align: center;
+    display: grid;
+}
+
+.temp {
+    text-align: center;
+    display: grid;
+    //flex-direction: column;
+    height: 200px;
+}

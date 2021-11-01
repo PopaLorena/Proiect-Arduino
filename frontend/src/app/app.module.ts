@@ -18,6 +18,7 @@ import { GazComponent } from './chart/gaz/gaz.component';
 import { ChartsModule } from 'ng2-charts';
 import { TemperaturaComponent } from './chart/temperatura/temperatura.component';
 import { UmiditateComponent } from './chart/umiditate/umiditate.component';
+import { ViewPageComponent } from './view-page/view-page.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { UmiditateComponent } from './chart/umiditate/umiditate.component';
     GazComponent,
     TemperaturaComponent,
     UmiditateComponent,
+    ViewPageComponent,
   ],
   imports: [
     ChartsModule,
