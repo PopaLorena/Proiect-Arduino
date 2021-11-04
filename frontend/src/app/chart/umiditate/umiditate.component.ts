@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { UmiditateService } from 'src/app/servises/umiditate.service';
+import { UmiditateService } from 'src/app/services/umiditate.service';
 @Component({
   selector: 'app-umiditate',
   templateUrl: './umiditate.component.html',

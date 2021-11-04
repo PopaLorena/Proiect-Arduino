@@ -19,7 +19,7 @@ import { ChartsModule } from 'ng2-charts';
 import { TemperaturaComponent } from './chart/temperatura/temperatura.component';
 import { UmiditateComponent } from './chart/umiditate/umiditate.component';
 import { ViewPageComponent } from './view-page/view-page.component';
-import { GazService } from './servises/gaz.service';
+import { GazService } from './services/gaz.service';
 
 
 @NgModule({

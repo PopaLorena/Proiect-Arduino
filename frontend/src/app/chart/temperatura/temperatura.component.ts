@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { TemperaturaService } from 'src/app/servises/temperatura.service';
+import { TemperaturaService } from 'src/app/services/temperatura.service';
 @Component({
   selector: 'app-temperatura',
   templateUrl: './temperatura.component.html',

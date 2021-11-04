@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { ThemeService } from 'ng2-charts';
-import { GazService } from 'src/app/servises/gaz.service';
+import { GazService } from 'src/app/services/gaz.service';
 
 @Component({
   selector: 'app-gaz',
