@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,16 +9,21 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   chart = 1;
-  constructor() { }
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {
+
+  }
 
   ngOnInit(): void {
-  }
-  next() {
-    if (this.chart == 3) {
-      this.chart = 1;
-    }
-    else
-      this.chart++;
+    this.activatedRoute.params.subscribe(i => {
+      this.chart = i['id'];
+      console.log(i);
+    });
 
+
+  };
+
+  goTo(i: number) {
+    this.router.navigate(['result/', i]);
   }
 }
