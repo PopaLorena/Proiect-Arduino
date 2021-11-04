@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { UmiditateService } from 'src/app/servises/umiditate.service';
 @Component({
   selector: 'app-umiditate',
   templateUrl: './umiditate.component.html',
@@ -8,17 +9,17 @@ import { Color, Label } from 'ng2-charts';
 })
 export class UmiditateComponent implements OnInit {
 
-  constructor() { }
+  constructor(private umiditateServise: UmiditateService) { }
 
   ngOnInit(): void {
   }
   // Array of different segments in chart
   lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Umiditate' }
+    { data: this.umiditateServise.data, label: 'Umiditate' }
   ];
 
   //Labels shown on the x-axis
-  lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  lineChartLabels: Label[] = this.umiditateServise.lineChartLabels;
 
   // Define chart options
   lineChartOptions: ChartOptions = {
@@ -32,11 +33,15 @@ export class UmiditateComponent implements OnInit {
     { // blue
       backgroundColor: 'rgba(0,0,255,0.5)',
       borderColor: 'blue',
+      pointBackgroundColor: '#fafafa',
+      pointBorderColor: '#fafafa',
+      pointHoverBackgroundColor: '#fafafa',
+      pointHoverBorderColor: '#fafafa'
     }
   ];
 
   // Set true to show legends
-  lineChartLegend = true;
+  lineChartLegend = false;
 
   // Define type of chart
   lineChartType: ChartType = 'line';

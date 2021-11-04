@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  chart = 1;
   constructor() { }
 
   ngOnInit(): void {
   }
+  next() {
+    if (this.chart == 3) {
+      this.chart = 1;
+    }
+    else
+      this.chart++;
 
+  }
 }

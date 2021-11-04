@@ -1,14 +1,23 @@
+.page {
+    //background-color: rgb(245, 238, 238);
+    background-color: black;
+    min-height: 130vh;
+    //margin-bottom: -10px;
+    color: rgb(247, 241, 241);
+}
+
 .charts {
     display: flex;
     flex-direction: row;
-    // display: grid;
-    // grid-template-columns: 45%;
-    //grid-template-rows: 1000px;
 }
 
 .chart {
     width: 700px;
     margin: 2%;
+}
+
+.chart-temp {
+    padding-left: 25%;
 }
 
 p {

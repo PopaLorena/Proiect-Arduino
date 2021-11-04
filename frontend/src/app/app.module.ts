@@ -19,6 +19,7 @@ import { ChartsModule } from 'ng2-charts';
 import { TemperaturaComponent } from './chart/temperatura/temperatura.component';
 import { UmiditateComponent } from './chart/umiditate/umiditate.component';
 import { ViewPageComponent } from './view-page/view-page.component';
+import { GazService } from './servises/gaz.service';
 
 
 @NgModule({
@@ -48,6 +49,6 @@ import { ViewPageComponent } from './view-page/view-page.component';
     LayoutModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, GazService]
 })
 export class AppModule { }

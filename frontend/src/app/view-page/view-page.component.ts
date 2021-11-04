@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class ViewPageComponent implements OnInit {
 
   constructor() { }
-
+  gaz = 5.3;
+  temp = 2.4;
+  apa = 4.8;
   ngOnInit(): void {
   }
 

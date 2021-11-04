@@ -1,17 +1,23 @@
-<div class="charts">
-    <div class="chart chart-gaz">
-        <p>Gaz</p>
-        <app-gaz></app-gaz>
+<div class="page">
+    <button (click)="next()"></button>
+    <div class="charts">
+        <div *ngIf="chart==1" class="chart chart-gaz">
+            <p>
+                <mat-icon>cloud_queue</mat-icon> Gaz</p>
+            <app-gaz></app-gaz>
+        </div>
+
+
+        <div *ngIf="chart==2" class="chart chart-apa">
+            <p>
+                <mat-icon>invert_colors</mat-icon> Umiditate</p>
+            <app-umiditate></app-umiditate>
+        </div>
     </div>
 
-    <mat-divider></mat-divider>
-    <div class="chart chart-apa">
-        <p>Umiditate</p>
-        <app-umiditate></app-umiditate>
+    <div *ngIf="chart==3" class="chart chart-temp">
+        <p>
+            <mat-icon>wb_sunny</mat-icon> Temperatura</p>
+        <app-temperatura></app-temperatura>
     </div>
-</div>
-<mat-divider></mat-divider>
-<div class="chart chart-temp">
-    <p>Temperatura</p>
-    <app-temperatura></app-temperatura>
 </div>
