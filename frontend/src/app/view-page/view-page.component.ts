@@ -7,11 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewPageComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+
+  }
   gaz = 5.3;
   temp = 2.4;
   apa = 4.8;
+  interval: any;
+
   ngOnInit(): void {
+    this.interval = setInterval(() => {
+      //this.gaz = this.gaz + 1;
+      // api call
+    }, 1000);
   }
 
+
+  ngOnDestroy() {
+
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
 }
+
