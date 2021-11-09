@@ -15,11 +15,11 @@ export class UmiditateComponent implements OnInit {
   }
   // Array of different segments in chart
   lineChartData: ChartDataSets[] = [
-    { data: this.umiditateServise.data, label: 'Umiditate' }
+    { data: [...this.umiditateServise.data], label: 'Umiditate' }
   ];
 
   //Labels shown on the x-axis
-  lineChartLabels: Label[] = this.umiditateServise.lineChartLabels;
+  lineChartLabels: Label[] = [...this.umiditateServise.lineChartLabels];
 
   // Define chart options
   lineChartOptions: ChartOptions = {

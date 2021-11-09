@@ -1,5 +1,4 @@
 .chartjs-container {
-    // box-shadow: 1rem 1rem 2rem rgba(245, 241, 241, 0.25);
     transform: perspective(800px) rotateY(0deg) scale(1) rotateX(0deg);
     opacity: 0.8;
     transition: 0.5s ease all;
@@ -11,7 +10,18 @@
         transform: perspective(800px) rotateY(-2deg) translateY(-5px) rotateX(2deg) scale(1);
         filter: blur(0);
         opacity: 1;
-        box-shadow: 1rem 1rem 2rem rgba(245, 241, 241, 0.25);
         background-color: rgb(41, 39, 39);
     }
+}
+
+.gaz {
+    box-shadow: 1rem 1rem 3rem rgba(245, 241, 241, 0.25);
+}
+
+.temp {
+    box-shadow: 1rem 1rem 2rem rgba(233, 106, 106, 0.25);
+}
+
+.apa {
+    box-shadow: 1rem 1rem 2rem rgba(129, 106, 233, 0.25);
 }
