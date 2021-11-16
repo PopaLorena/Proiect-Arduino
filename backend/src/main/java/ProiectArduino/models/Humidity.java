@@ -2,7 +2,7 @@ package ProiectArduino.models;
 
 import java.time.Instant;
 
-public class Umidity {
+public class Humidity {
 
     public Double value;
     public Instant date;
@@ -23,7 +23,7 @@ public class Umidity {
         this.date = date;
     }
 
-    public Umidity(Double value, Instant date) {
+    public Humidity(Double value, Instant date) {
         this.value = value;
         this.date = date;
     }

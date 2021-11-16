@@ -6,7 +6,7 @@ import com.influxdb.query.FluxRecord;
 import com.influxdb.query.FluxTable;
 import ProiectArduino.models.Gas;
 import ProiectArduino.models.Temperature;
-import ProiectArduino.models.Umidity;
+import ProiectArduino.models.Humidity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class InfluxDBConnection {
     String org = "arduinosio2021@gmail.com";
     List<Temperature> tempList = new ArrayList<>();
     List<Gas> gasList = new ArrayList<>();
-    List<Umidity> umidityList = new ArrayList<>();
+    List<Humidity> humidityList = new ArrayList<>();
 
     InfluxDBClient client = InfluxDBClientFactory.create("https://eu-central-1-1.aws.cloud2.influxdata.com", token.toCharArray());
 
@@ -41,12 +41,12 @@ public class InfluxDBConnection {
         this.gasList = gasList;
     }
 
-    public List<Umidity> getUmidityList() {
-        return umidityList;
+    public List<Humidity> getHumidityList() {
+        return humidityList;
     }
 
-    public void setUmidityList(List<Umidity> umidityList) {
-        this.umidityList = umidityList;
+    public void setUmidityList(List<Humidity> humidityList) {
+        this.humidityList = humidityList;
     }
 
     public void read(){
@@ -64,7 +64,7 @@ public class InfluxDBConnection {
                 }
 
                 if (record.getField().equals("Humidity")){
-                    this.umidityList.add(new Umidity((Double) record.getValue(), record.getTime()));
+                    this.humidityList.add(new Humidity((Double) record.getValue(), record.getTime()));
                 }
             }
         }
