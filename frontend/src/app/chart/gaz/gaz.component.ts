@@ -17,13 +17,12 @@ export class GazComponent implements OnInit {
   }
   // Array of different segments in chart
   lineChartData: ChartDataSets[] = [
-    // { data: [65, 59, 80, 81, 56, 55, 40], label: 'Product A' },
-    { data: this.gazServises.data, label: 'gaz' }
+    { data: [...this.gazServises.data], label: 'gaz' }
   ];
 
   //Labels shown on the x-axis
-  lineChartLabels: Label[] = this.gazServises.gaz;
-  //lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  lineChartLabels: Label[] = [...this.gazServises.gaz];
+
 
   // Define chart options
   lineChartOptions: ChartOptions = {

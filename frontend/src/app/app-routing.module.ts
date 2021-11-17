@@ -8,7 +8,7 @@ import { ViewPageComponent } from './view-page/view-page.component';
 
 const routes: Routes = [
   { path: '', component: ViewPageComponent },
-  { path: 'result', component: DashboardComponent }
+  { path: 'result/:id', component: DashboardComponent },
 ];
 
 

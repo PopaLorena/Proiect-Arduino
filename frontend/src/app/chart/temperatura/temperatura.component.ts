@@ -15,11 +15,11 @@ export class TemperaturaComponent implements OnInit {
   }
   // Array of different segments in chart
   lineChartData: ChartDataSets[] = [
-    { data: this.tempServise.data, label: 'temperatura' },
+    { data: [...this.tempServise.data], label: 'temperatura' },
   ];
 
   //Labels shown on the x-axis
-  lineChartLabels: Label[] = this.tempServise.lineChartLabels;
+  lineChartLabels: Label[] = [...this.tempServise.lineChartLabels];
 
   // Define chart options
   lineChartOptions: ChartOptions = {
