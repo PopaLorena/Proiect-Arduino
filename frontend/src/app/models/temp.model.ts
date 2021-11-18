@@ -1,5 +1,5 @@
 export class TempModel {
 
-    constructor(public date: Date, public value: number){
+    constructor(public temp: number, public date: Date){
     }
 }

@@ -12,12 +12,15 @@ export class TemperaturaComponent implements OnInit {
 
   constructor(private tempService: TemperaturaService) { }
   temp:TempModel[] = [];
+  var:any;
+  
 
   ngOnInit(): void {
     this.tempService.getTemperatureValues().subscribe(data =>{
       this.temp = data as TempModel[];
-      console.log(this.temp);
+      console.log(this.temp[0].temp);
     })
+    
   }
   // Array of different segments in chart
   lineChartData: ChartDataSets[] = [

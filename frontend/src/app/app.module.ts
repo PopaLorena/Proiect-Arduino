@@ -20,6 +20,9 @@ import { TemperaturaComponent } from './chart/temperatura/temperatura.component'
 import { UmiditateComponent } from './chart/umiditate/umiditate.component';
 import { ViewPageComponent } from './view-page/view-page.component';
 import { GazService } from './services/gaz.service';
+import { TemperaturaService } from './services/temperatura.service';
+import { UmiditateService } from './services/umiditate.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -46,9 +49,10 @@ import { GazService } from './services/gaz.service';
     MatGridListModule,
     MatCardModule,
     MatButtonModule,
-    LayoutModule
+    LayoutModule,
+    HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent, GazService]
+  bootstrap: [AppComponent, GazService, TemperaturaService, UmiditateService]
 })
 export class AppModule { }

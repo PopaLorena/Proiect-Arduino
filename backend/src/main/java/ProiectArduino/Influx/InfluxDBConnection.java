@@ -50,7 +50,7 @@ public class InfluxDBConnection {
     }
 
     public void read(){
-        String query = "from(bucket: \"ArduinoESP\") |> range(start: -1h)";
+        String query = "from(bucket: \"ArduinoESP\") |> range(start: -30d)";
         List<FluxTable> tables = client.getQueryApi().query(query, org);
 
         for (FluxTable table : tables) {
