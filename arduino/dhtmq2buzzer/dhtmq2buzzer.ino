@@ -1,4 +1,5 @@
-#include "DHT.h"
+#include <DHT.h>
+//#include "dht11.h"
 
 #include <InfluxDbClient.h>
 #include <InfluxDbCloud.h>
@@ -31,6 +32,7 @@ Point sensor("esp8266s");
 #define         READ_SAMPLE_INTERVAL         (50)   
 #define         READ_SAMPLE_TIMES            (5)     
 
+#define PIR D1
 #define DHTPIN D2     // what pin we're connected to
 #define MQ2 A0     // what pin we're connected to
 // Uncomment whatever type you're using!
@@ -41,9 +43,12 @@ Point sensor("esp8266s");
 const int buzzer = 13;
 int Ro = 10;
 DHT dht(DHTPIN, DHTTYPE);
-
+//DHT11 dht2(DHTPIN);
 void setup() {
+  
   Serial.begin(9600);
+  pinMode(PIR,INPUT);
+  Serial.print("PIR Installed\n");
   Serial.println("DHTxx test!");
     pinMode(MQ2, INPUT);
     Serial.print("Calibrating...\n");                
@@ -68,10 +73,24 @@ void setup() {
 void loop() {
 // Wait a few secondsbetween measurements.
   delay(2000);
-
+  
   sensor.clearFields();
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+
+
+ int val = digitalRead(PIR);   // read sensor value
+  if (val == HIGH) {           // check if the sensor is HIGH
+    Serial.println("presence detected");   // turn LED ON
+    delay(500);  
+    sensor.addField("PIR", 1);
+  }
+  else {
+    Serial.println("Nothing to show");
+    delay(500);
+    sensor.addField("PIR", 0);
+    }
+  
   float h = dht.readHumidity();
   // Read temperature as Celsius (the default)
   float t = dht.readTemperature();

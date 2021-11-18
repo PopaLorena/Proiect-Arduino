@@ -1,7 +1,7 @@
 #ifndef DHT11_GUARD
 #define DHT11_GUARD
 
-#include "C:\Users\User\AppData\Local\Arduino15\packages\arduino\hardware\avr\1.8.3\cores\arduino\Arduino.h"
+#include "C:\Users\dinui\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\2.7.3\cores\esp8266\Arduino.h"
 
 class DHT11
 {
