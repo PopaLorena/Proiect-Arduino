@@ -102,6 +102,12 @@ void loop() {
      
      delay(500);        // ...for 1 sec
      noTone(buzzer);     // Stop sound...
+
+     sensor.addField("Buzzer", 1);
+   }
+
+   else{
+     sensor.addField("Buzzer", 0);
    }
 
   sensor.addField("Temp", t);
