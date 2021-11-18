@@ -11,6 +11,13 @@
     flex-direction: row;
 }
 
+.soloChart {
+    background-color: black;
+    min-height: 70vh;
+    //margin-bottom: -10px;
+    color: rgb(247, 241, 241);
+}
+
 .chart {
     width: 700px;
     margin: 2%;
