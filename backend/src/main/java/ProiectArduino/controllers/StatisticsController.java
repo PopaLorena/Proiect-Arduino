@@ -1,13 +1,10 @@
 package ProiectArduino.controllers;
 
 import ProiectArduino.Influx.InfluxDBConnection;
-import ProiectArduino.models.Gas;
-import ProiectArduino.models.Humidity;
-import ProiectArduino.models.Temperature;
+import ProiectArduino.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,4 +38,15 @@ public class StatisticsController {
     public ResponseEntity<List<Gas>> getGas(){
         return new ResponseEntity<>(influxDBConnection.getGasList().stream().skip(influxDBConnection.getTempList().size() - 10).collect(Collectors.toList()), HttpStatus.OK);
     }
+
+    @GetMapping("/buzzer")
+    public ResponseEntity<Buzzer> getBuzzer(){
+        return new ResponseEntity<>(influxDBConnection.getBuzzer(), HttpStatus.OK);
+    }
+
+    @GetMapping("/PIR")
+    public ResponseEntity<PIR> getPIR(){
+        return new ResponseEntity<>(influxDBConnection.getPIR(), HttpStatus.OK);
+    }
+
 }
