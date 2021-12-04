@@ -19,6 +19,7 @@ export class TemperaturaComponent implements OnInit {
     this.tempService.getTemperatureValues().subscribe(data =>{
       this.temp = data as TempModel[];
       console.log(this.temp[0].temp);
+      console.log(this.temp[0].date);
     })
     
   }

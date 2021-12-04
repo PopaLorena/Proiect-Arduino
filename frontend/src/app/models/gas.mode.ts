@@ -1,5 +1,5 @@
 export class GasModel {
 
-    constructor(public date: Date, public value: number){
+    constructor(public value: number, public date: Date){
     }
 }

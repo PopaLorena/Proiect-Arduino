@@ -9,7 +9,7 @@ import { GasModel } from '../models/gas.mode';
 export class GazService {
 
   gaz = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  url = '';
+  url = 'http://localhost:8080/statistics/gas';
   data = [80, 59, 80, 81, 56, 55, 40]
   constructor(public httpClient: HttpClient) { }
 

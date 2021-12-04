@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { UmidityModel } from 'src/app/models/umidity.model';
 import { UmiditateService } from 'src/app/services/umiditate.service';
 @Component({
   selector: 'app-umiditate',
@@ -9,17 +10,23 @@ import { UmiditateService } from 'src/app/services/umiditate.service';
 })
 export class UmiditateComponent implements OnInit {
 
-  constructor(private umiditateServise: UmiditateService) { }
+  constructor(private umiditateService: UmiditateService) { }
+  humidity: UmidityModel[] = [];
 
   ngOnInit(): void {
+    this.umiditateService.getUmidityValues().subscribe(data =>{
+      this.humidity = data as UmidityModel[];
+      console.log(this.humidity[0].value);
+      console.log(this.humidity[0].date);
+    })
   }
   // Array of different segments in chart
   lineChartData: ChartDataSets[] = [
-    { data: [...this.umiditateServise.data], label: 'Umiditate' }
+    { data: [...this.umiditateService.data], label: 'Umiditate' }
   ];
 
   //Labels shown on the x-axis
-  lineChartLabels: Label[] = [...this.umiditateServise.lineChartLabels];
+  lineChartLabels: Label[] = [...this.umiditateService.lineChartLabels];
 
   // Define chart options
   lineChartOptions: ChartOptions = {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { ThemeService } from 'ng2-charts';
+import { GasModel } from 'src/app/models/gas.mode';
 import { GazService } from 'src/app/services/gaz.service';
 
 @Component({
@@ -11,17 +12,23 @@ import { GazService } from 'src/app/services/gaz.service';
 })
 export class GazComponent implements OnInit {
 
-  constructor(private gazServises: GazService) { }
+  constructor(private gazService: GazService) { }
+  gas: GasModel[] = [];
 
   ngOnInit(): void {
+    this.gazService.getGasValues().subscribe(data =>{
+      this.gas = data as GasModel[];
+      console.log(this.gas[0].value);
+      console.log(this.gas[0].date);
+    })
   }
   // Array of different segments in chart
   lineChartData: ChartDataSets[] = [
-    { data: [...this.gazServises.data], label: 'gaz' }
+    { data: [...this.gazService.data], label: 'gaz' }
   ];
 
   //Labels shown on the x-axis
-  lineChartLabels: Label[] = [...this.gazServises.gaz];
+  lineChartLabels: Label[] = [...this.gazService.gaz];
 
 
   // Define chart options

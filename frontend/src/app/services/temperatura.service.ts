@@ -13,7 +13,6 @@ export class TemperaturaService {
   constructor(public httpClient: HttpClient) { }
 
   getTemperatureValues():Observable<TempModel[]>{
-    console.log(this.httpClient.get(this.url) as Observable<TempModel[]>)
     return this.httpClient.get(this.url) as Observable<TempModel[]>;
   }
 }
