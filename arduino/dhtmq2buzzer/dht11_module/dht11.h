@@ -1,7 +1,7 @@
 #ifndef DHT11_GUARD
 #define DHT11_GUARD
 
-#include "C:\Users\dinui\AppData\Local\Arduino15\packages\esp8266\hardware\esp8266\2.7.3\cores\esp8266\Arduino.h"
+#include ""
 
 class DHT11
 {
@@ -16,11 +16,16 @@ class DHT11
     volatile static long dht11_data_time[100];
 
     /* ISR - to call at every pin state change */
-    static void dht11DataChange() ;
+    // static void dht11DataChange();   <<ARDUINO LIBRARY IMPLEMENTATION>>
+
+    /* Parameters for register implementation */
+    volatile static int ovfl_iterations;
+    volatile static int resp_delay_match;
 
   public:
-    /* CLass constructor */
+    /* Class constructor */
     DHT11( int dataPin );
+ 
     /* Read from DHT11 function */
     bool read( uint16_t &temp, uint16_t &humidity ) ;
 } ;
