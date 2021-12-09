@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GasModel } from '../models/gas.mode';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +9,11 @@ import { Injectable } from '@angular/core';
 export class GazService {
 
   gaz = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
+  url = 'http://localhost:8080/statistics/gas';
   data = [80, 59, 80, 81, 56, 55, 40]
-  constructor() { }
+  constructor(public httpClient: HttpClient) { }
+
+  getGasValues(): Observable<GasModel[]>{
+    return this.httpClient.get(this.url) as Observable<GasModel[]>;
+  }
 }
