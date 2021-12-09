@@ -23,6 +23,7 @@ import { GazService } from './services/gaz.service';
 import { TemperaturaService } from './services/temperatura.service';
 import { UmiditateService } from './services/umiditate.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { HttpClientModule } from '@angular/common/http';
     ViewPageComponent,
   ],
   imports: [
+    ScrollingModule,
     ChartsModule,
     MatDividerModule,
     MatMenuModule,
