@@ -1,6 +1,7 @@
 #include <DHT.h>
-//#include "dht11.h"
-
+// #include "dht11.h"
+#include <ESP8266WiFiMulti.h>
+ESP8266WiFiMulti wifiMulti;
 #include <InfluxDbClient.h>
 #include <InfluxDbCloud.h>
 
@@ -14,6 +15,9 @@
 
 #define TZ_INFO "CET-1CEST,M3.5.0,M10.5.0/3"
 #define DEVICE "ESP8266"
+// Replace with your network credentials
+const char* ssid = "Kid";
+const char* password = "aaaabbbb";
 // InfluxDB client instance with preconfigured InfluxCloud certificate
 InfluxDBClient client(INFLUXDB_URL, INFLUXDB_ORG, INFLUXDB_BUCKET, INFLUXDB_TOKEN, InfluxDbCloud2CACert);
 
@@ -43,17 +47,29 @@ Point sensor("esp8266s");
 const int buzzer = 13;
 int Ro = 10;
 DHT dht(DHTPIN, DHTTYPE);
-//DHT11 dht2(DHTPIN);
+//DHT_Module dht2(DHTPIN);           
 void setup() {
   
-  Serial.begin(9600);
+  Serial.begin(115200);
+
+   WiFi.mode(WIFI_STA);
+  wifiMulti.addAP(ssid, password);
+ 
+  Serial.print("Connecting to wifi");
+  while (wifiMulti.run() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(100);
+  }
+  Serial.println();
+
+  
   pinMode(PIR,INPUT);
   Serial.print("PIR Installed\n");
   Serial.println("DHTxx test!");
     pinMode(MQ2, INPUT);
     Serial.print("Calibrating...\n");                
                      //Calibrating the sensor. Please make sure the sensor is in clean air 
-                                                    //when you perform the calibration                    
+             
   Serial.print("Calibration is done...\n"); 
   Serial.print("Ro=");
   Serial.print(Ro);
@@ -72,7 +88,7 @@ void setup() {
 }
 void loop() {
 // Wait a few secondsbetween measurements.
-  delay(2000);
+  delay(1500);
   
   sensor.clearFields();
   // Reading temperature or humidity takes about 250 milliseconds!
@@ -81,13 +97,11 @@ void loop() {
 
  int val = digitalRead(PIR);   // read sensor value
   if (val == HIGH) {           // check if the sensor is HIGH
-    Serial.println("presence detected");   // turn LED ON
-    delay(500);  
+    Serial.println("presence detected");   // turn LED ON  
     sensor.addField("PIR", 1);
   }
   else {
     Serial.println("Nothing to show");
-    delay(500);
     sensor.addField("PIR", 0);
     }
   
@@ -98,9 +112,19 @@ void loop() {
   // Check if any reads failed and exit early (to try again).
   if (isnan(h) || isnan(t)) {
     Serial.println("Nu se poate citi de la DHT!");
-    return;
-  }
 
+  }
+  //uint16_t h2, t2;
+  //if(dht2.read(t2,h2)){
+  //  Serial.println();
+  //  Serial.print(t2);
+  //  Serial.print("   ");
+  //  Serial.print(h2);
+  //  Serial.println();
+ // }
+ // else{
+ //   Serial.println("Modulul nu functioneste pupjos");
+ // }
   // Compute heat index in Fahrenheit (the default)
   //float hif = dht.computeHeatIndex(f, h);
   // Compute heat index in Celsius (isFahreheit = false)
@@ -116,7 +140,7 @@ void loop() {
   Serial.print(mq2_read);
    Serial.print(" ppm");
    Serial.print("\n");
-   if(mq2_read > float(800) || t > float(50)){
+   if(mq2_read > float(1000) || t > float(50)){
      tone(buzzer, 1000); // Send 1KHz sound signal...
      
      delay(500);        // ...for 1 sec
