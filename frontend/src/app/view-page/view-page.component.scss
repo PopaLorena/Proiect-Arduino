@@ -2,7 +2,6 @@
     background-color: black;
     min-height: 90vh;
     display: grid;
-    //  justify-items: center;
     grid-template-rows: 250px auto;
     margin-bottom: -150px;
 }
@@ -54,12 +53,30 @@ p {
     height: 60px;
     border-radius: 50px;
     background-color: transparent;
-    border: 6px solid rgba($color: #eedcdc, $alpha: 1.0);
+    border: 6px solid rgba($color: #f10808, $alpha: 1.0);
+}
+
+.box1 div {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    background-color: red;
+    border: 6px solid rgba($color: red, $alpha: 1.0);
+    opacity: 1;
+    box-shadow: 5px 5px 30px red;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
 }
 
 .box div:nth-child(1) {
     top: 12%;
     left: 42%;
+    animation: blinker 1s step-start infinite;
     animation: animate 10s linear infinite;
 }
 

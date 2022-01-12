@@ -13,7 +13,10 @@ export class GazService {
   data = [80, 59, 80, 81, 56, 55, 40]
   constructor(public httpClient: HttpClient) { }
 
-  getGasValues(): Observable<GasModel[]>{
+  getGasValues(): Observable<GasModel[]> {
     return this.httpClient.get(this.url) as Observable<GasModel[]>;
+  }
+  getGasValue(): Observable<GasModel> {
+    return this.httpClient.get(this.url) as Observable<GasModel>;
   }
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-
-import { TemperaturaService } from 'src/app/services/temperatura.service';
+import { UmidityModel } from 'src/app/models/umidity.model';
 import { UmiditateService } from 'src/app/services/umiditate.service';
+import { TemperaturaService } from 'src/app/services/temperatura.service';
+
 @Component({
   selector: 'app-umiditate',
   templateUrl: './umiditate.component.html',
@@ -11,7 +11,7 @@ import { UmiditateService } from 'src/app/services/umiditate.service';
 })
 export class UmiditateComponent implements OnInit {
 
-  constructor(private tempService: TemperaturaService) { }
+  constructor(private umiditateService: UmiditateService) { }
 
   // apa?: TempApaModel;
   Data = [
@@ -23,11 +23,14 @@ export class UmiditateComponent implements OnInit {
     { apa: 24, time: '17:00' },
     { apa: 24, time: '18:00' },];
 
+  humidity: UmidityModel[] = [];
+
   ngOnInit(): void {
-    // this.tempService.getTempAndUmiditateValue().subscribe(data => {
-    //   this.apa = data as TempApaModel;
-    //   console.log(this.apa.humidity);
-    // })
+    this.umiditateService.getUmidityValues().subscribe(data => {
+      this.humidity = data as UmidityModel[];
+      console.log(this.humidity[0].value);
+      console.log(this.humidity[0].date);
+    })
   }
 
 }

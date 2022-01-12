@@ -1,4 +1,4 @@
-<div class="box">
+<div class="box" [ngClass]="{'box1': buzzer > 1 && buzzer<7}">
     <div></div>
     <div></div>
     <div></div>
@@ -16,7 +16,7 @@
         <div class="gaz">
             <p>
                 <mat-icon>cloud_queue</mat-icon> Gaz</p>
-            <p><span class="digits">{{gaz}}</span>ppm</p>
+            <p><span class="digits">{{gazData}}</span>ppm</p>
         </div>
         <div class="apa">
             <p>
@@ -28,7 +28,7 @@
         <p>
             <mat-icon>wb_sunny</mat-icon> Temperatura</p>
 
-        <p><span class="digits">{{temp}}</span>℃</p>
+        <p><span class="digits">{{tempData}}</span>℃</p>
     </div>
 
 </div>
